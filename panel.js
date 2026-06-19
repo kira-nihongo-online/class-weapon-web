@@ -87,25 +87,25 @@ function openSubtitleWindow(translated) {
 // ========================================
 // 単語辞書
 // ========================================
-async function searchWord() {
-  const word = document.getElementById("dictInput").value;
-  const resultDiv = document.getElementById("dictResult");
+//async function searchWord() {
+  //const word = document.getElementById("dictInput").value;
+  //const resultDiv = document.getElementById("dictResult");
 
-  if (!word) {
-    resultDiv.innerHTML = "";
-    return;
-  }
+  //if (!word) {
+    //resultDiv.innerHTML = "";
+    //return;
+  //}
 
-  const url =
-    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=th&dt=t&q=" +
-    encodeURIComponent(word);
+  //const url =
+    //"https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=th&dt=t&q=" +
+    //encodeURIComponent(word);
 
-  const res = await fetch(url);
-  const data = await res.json();
-  const translated = data[0].map(t => t[0]).join("");
+  //const res = await fetch(url);
+  //const data = await res.json();
+  //const translated = data[0].map(t => t[0]).join("");
 
-  resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
-}
+  //resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
+//}
 
 // ========================================
 // 文サポート
@@ -160,8 +160,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultDiv = document.getElementById("translateResult");
   const sentenceInput = document.getElementById("sentenceInput");
   const sentenceResult = document.getElementById("sentenceResult");
-  const dictInput = document.getElementById("dictInput");
-  const dictResult = document.getElementById("dictResult");
 
   // ===== 入力欄変更時に結果をクリア =====
   textarea.addEventListener("input", function() {
@@ -177,13 +175,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!this.value) sentenceResult.innerHTML = "";
   });
 
-  dictInput.addEventListener("input", function() {
-    if (!this.value) dictResult.innerHTML = "";
-  });
 
   // ===== ボタンイベント =====
   document.getElementById("translateBtn").addEventListener("click", translateText);
-  document.getElementById("dictBtn").addEventListener("click", searchWord);
+  
   document.getElementById("sentenceBtn").addEventListener("click", sentenceSupport);
 
   document.getElementById("clearBtn").addEventListener("click", function () {
@@ -194,13 +189,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("sentenceInput").value = "";
     document.getElementById("sentenceResult").innerHTML = "";
 
-    document.getElementById("dictInput").value = "";
-    document.getElementById("dictResult").innerHTML = "";
-
   });
 
   // ===== Enterキーで実行 =====
   textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
-  dictInput.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); searchWord(); }});
+  
   sentenceInput.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); sentenceSupport(); }});
 });
