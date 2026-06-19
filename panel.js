@@ -12,7 +12,6 @@ async function translateText() {
 
   if (!text) {
     resultDiv.innerHTML = "";
-    document.getElementById("sentenceInput").value = "";
     document.getElementById("sentenceResult").innerHTML = "";
     return;
   }
@@ -29,7 +28,6 @@ async function translateText() {
   resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
 
   // ===== 文サポート連動 =====
-  document.getElementById("sentenceInput").value = text;
   sentenceSupport();
 
   // ===== 字幕表示 =====
@@ -111,7 +109,7 @@ function openSubtitleWindow(translated) {
 // 文サポート
 // ========================================
 async function sentenceSupport() {
-  const text = document.getElementById("sentenceInput").value;
+  const text = document.getElementById("jpInput").value;
   const resultDiv = document.getElementById("sentenceResult");
 
   if (!text) {
@@ -151,41 +149,29 @@ async function sentenceSupport() {
 document.addEventListener("DOMContentLoaded", function () {
   const textarea = document.getElementById("jpInput");
   const resultDiv = document.getElementById("translateResult");
-  const sentenceInput = document.getElementById("sentenceInput");
+  
   const sentenceResult = document.getElementById("sentenceResult");
 
   // ===== 入力欄変更時に結果をクリア =====
   textarea.addEventListener("input", function() {
-    if (!this.value) {
-      resultDiv.innerHTML = "";
-      sentenceInput.value = "";
-      sentenceResult.innerHTML = "";
-      if (subtitlePopup && !subtitlePopup.closed) subtitlePopup.close();
-    }
+if (!this.value) {
+  resultDiv.innerHTML = "";
+  sentenceResult.innerHTML = "";
+}
   });
-
-  sentenceInput.addEventListener("input", function() {
-    if (!this.value) sentenceResult.innerHTML = "";
-  });
-
 
   // ===== ボタンイベント =====
   document.getElementById("translateBtn").addEventListener("click", translateText);
-  
-  document.getElementById("sentenceBtn").addEventListener("click", sentenceSupport);
 
   document.getElementById("clearBtn").addEventListener("click", function () {
 
     document.getElementById("jpInput").value = "";
     document.getElementById("translateResult").innerHTML = "";
-
-    document.getElementById("sentenceInput").value = "";
     document.getElementById("sentenceResult").innerHTML = "";
 
   });
 
   // ===== Enterキーで実行 =====
   textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
-  
-  sentenceInput.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); sentenceSupport(); }});
+
 });
