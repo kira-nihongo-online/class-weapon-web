@@ -143,13 +143,6 @@ async function sentenceSupport() {
 
   resultDiv.innerHTML = html;
 
-  document.querySelectorAll(".wordRow").forEach(row => {
-    row.addEventListener("click", function () {
-      const word = this.dataset.word;
-      document.getElementById("dictInput").value = word;
-      searchWord();
-    });
-  });
 }
 
 // ========================================
