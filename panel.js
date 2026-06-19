@@ -32,15 +32,11 @@ async function translateText() {
   document.getElementById("sentenceInput").value = text;
   sentenceSupport();
 
-  // ===== 字幕表示 =====
-  openSubtitleWindow(translated);
 }
 
 // ========================================
 // 字幕用ウィンドウ表示
 // ========================================
-let subtitlePopup = null;
-function openSubtitleWindow(translated) {
   if (!translated) return;
 
   // ウィンドウが開いていなければ新規作成
@@ -169,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
       resultDiv.innerHTML = "";
       sentenceInput.value = "";
       sentenceResult.innerHTML = "";
-      if (subtitlePopup && !subtitlePopup.closed) subtitlePopup.close();
     }
   });
 
