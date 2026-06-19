@@ -33,7 +33,7 @@ async function translateText() {
   sentenceSupport();
 
   // ===== 字幕表示 =====
-  openSubtitleWindow(translated);
+  //openSubtitleWindow(translated);
 }
 
 // ========================================
