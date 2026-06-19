@@ -186,6 +186,19 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("dictBtn").addEventListener("click", searchWord);
   document.getElementById("sentenceBtn").addEventListener("click", sentenceSupport);
 
+  document.getElementById("clearBtn").addEventListener("click", function () {
+
+    document.getElementById("jpInput").value = "";
+    document.getElementById("translateResult").innerHTML = "";
+
+    document.getElementById("sentenceInput").value = "";
+    document.getElementById("sentenceResult").innerHTML = "";
+
+    document.getElementById("dictInput").value = "";
+    document.getElementById("dictResult").innerHTML = "";
+
+  });
+
   // ===== Enterキーで実行 =====
   textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
   dictInput.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); searchWord(); }});
