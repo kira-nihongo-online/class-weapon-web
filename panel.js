@@ -30,9 +30,6 @@ async function translateText() {
   // サイドパネル表示
   resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
 
-  // ===== 文サポート連動 =====
-  //sentenceSupport();
-
   // ===== 字幕表示 =====
   //openSubtitleWindow(translated);
 }
@@ -107,44 +104,6 @@ function openSubtitleWindow(translated) {
 
   //resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
 //}
-
-// ========================================
-// 文サポート
-// ========================================
-async function sentenceSupport() {
-  const text = document.getElementById("inputText").value;
-  const resultDiv = document.getElementById("sentenceResult");
-
-  if (!text) {
-    resultDiv.innerHTML = "";
-    return;
-  }
-
-  resultDiv.innerHTML = "解析中...";
-
-  let words = text.split(/は|が|を|に|で|と|も|へ|や|の|、|。|\s/);
-  words = words.filter(w => w.trim() !== "");
-  words = [...new Set(words)];
-
-  let html = "";
-  for (const word of words) {
-    const url =
-      "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
-      encodeURIComponent(word);
-
-    const res = await fetch(url);
-    const data = await res.json();
-    const translated = data[0].map(t => t[0]).join("");
-
-    html += `<div class="wordRow" data-word="${word}">
-      <span>${word}</span>
-      <span class="translated">${translated}</span>
-    </div>`;
-  }
-
-  resultDiv.innerHTML = html;
-
-}
 
 // ========================================
 // 初期設定
