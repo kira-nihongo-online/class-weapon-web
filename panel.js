@@ -7,7 +7,7 @@
 // 授業翻訳
 // ========================================
 async function translateText() {
-  const text = document.getElementById("jpInput").value;
+  const text = document.getElementById("inputText").value;
   const resultDiv = document.getElementById("translateResult");
 
   if (!text) {
@@ -95,7 +95,7 @@ function openSubtitleWindow(translated) {
   //}
 
   //const url =
-    //"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
+    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
     //encodeURIComponent(word);
 
   //const res = await fetch(url);
@@ -109,7 +109,7 @@ function openSubtitleWindow(translated) {
 // 文サポート
 // ========================================
 async function sentenceSupport() {
-  const text = document.getElementById("jpInput").value;
+  const text = document.getElementById("inputText").value;
   const resultDiv = document.getElementById("sentenceResult");
 
   if (!text) {
@@ -147,7 +147,7 @@ async function sentenceSupport() {
 // 初期設定
 // ========================================
 document.addEventListener("DOMContentLoaded", function () {
-  const textarea = document.getElementById("jpInput");
+  const textarea = document.getElementById("inputText");
   const resultDiv = document.getElementById("translateResult");
 
   const sentenceResult = document.getElementById("sentenceResult");
@@ -165,7 +165,7 @@ if (!this.value) {
 
   document.getElementById("clearBtn").addEventListener("click", function () {
 
-    document.getElementById("jpInput").value = "";
+    document.getElementById("inputText").value = "";
     document.getElementById("translateResult").innerHTML = "";
     document.getElementById("sentenceResult").innerHTML = "";
 
