@@ -216,6 +216,8 @@ const Voice = (function () {
 
     };
 
+    console.log("===== English Voices =====");    
+
     setVoices();
     speechSynthesis.onvoiceschanged = setVoices;
 
