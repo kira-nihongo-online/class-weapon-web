@@ -9,6 +9,7 @@
 async function translateText() {
   const text = document.getElementById("inputText").value;
   const resultDiv = document.getElementById("translateResult");
+  const targetLang = document.getElementById("targetLang").value;
 
   if (!text) {
     resultDiv.innerHTML = "";
@@ -17,7 +18,9 @@ async function translateText() {
   }
 
   const url =
-    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
+    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" +
+    targetLang +
+    "&dt=t&q=" +
     encodeURIComponent(text);
 
   const res = await fetch(url);
