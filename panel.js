@@ -265,3 +265,5 @@ document.getElementById("speakBtn").addEventListener("click", function () {
   Voice.speak(text, lang);
 
 });
+
+console.log(kuromoji);
