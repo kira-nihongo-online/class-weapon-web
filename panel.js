@@ -175,7 +175,24 @@ async function wordSupport() {
 
  }
 
+// ========================================
+// Kuromoji
+// ========================================
+let tokenizer = null;
 
+kuromoji.builder({
+  dicPath: "dict"
+}).build(function(err, t) {
+
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  tokenizer = t;
+  console.log("Kuromoji Ready");
+
+});
 
 // ========================================
 // Voice Controller
