@@ -148,8 +148,15 @@ if (!this.value) {
 // ========================================
 async function wordSupport() {
 
+  const text = document.getElementById("inputText").value;
   const resultDiv = document.getElementById("sentenceResult");
-  resultDiv.innerHTML = "";
+
+  if (!text) {
+    resultDiv.innerHTML = "";
+    return;
+  }
+
+  resultDiv.innerHTML = "解析中...";
 
 }
 
