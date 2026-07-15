@@ -164,6 +164,17 @@ async function wordSupport() {
 
 }
 
+if (!isJapanese) {
+  resultDiv.innerHTML = "";
+  return;
+}
+
+let words = text.split(/は|が|を|に|で|と|も|へ|や|の|、|。|\s/);
+words = words.filter(w => w.trim() !== "");
+words = [...new Set(words)];
+
+resultDiv.innerHTML = words.join("<br>");
+
 // ========================================
 // Voice Controller
 // ========================================
