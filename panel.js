@@ -31,7 +31,7 @@ async function translateText() {
   resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
 
   // ===== 文サポート連動 =====
-  sentenceSupport();
+  //sentenceSupport();
 
   // ===== 字幕表示 =====
   //openSubtitleWindow(translated);
