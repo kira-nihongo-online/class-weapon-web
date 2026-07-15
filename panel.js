@@ -30,6 +30,8 @@ async function translateText() {
   // サイドパネル表示
   resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
 
+  wordSupport();
+
   // ===== 字幕表示 =====
   //openSubtitleWindow(translated);
 }
@@ -140,6 +142,16 @@ if (!this.value) {
   textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
 
 });
+
+// ========================================
+// 単語サポート
+// ========================================
+async function wordSupport() {
+
+  const resultDiv = document.getElementById("sentenceResult");
+  resultDiv.innerHTML = "";
+
+}
 
 // ========================================
 // Voice Controller
