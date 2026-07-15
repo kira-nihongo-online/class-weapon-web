@@ -162,18 +162,20 @@ async function wordSupport() {
 
   resultDiv.innerHTML = isJapanese ? "日本語を解析します..." : "タイ語を解析します...";
 
-}
+  if (!isJapanese) {
+    resultDiv.innerHTML = "";
+    return;
+  }
 
-if (!isJapanese) {
-  resultDiv.innerHTML = "";
-  return;
-}
+  let words = text.split(/は|が|を|に|で|と|も|へ|や|の|、|。|\s/);
+  words = words.filter(w => w.trim() !== "");
+  words = [...new Set(words)];
 
-let words = text.split(/は|が|を|に|で|と|も|へ|や|の|、|。|\s/);
-words = words.filter(w => w.trim() !== "");
-words = [...new Set(words)];
+  resultDiv.innerHTML = words.join("<br>");
 
-resultDiv.innerHTML = words.join("<br>");
+ }
+
+
 
 // ========================================
 // Voice Controller
