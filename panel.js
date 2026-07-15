@@ -150,6 +150,9 @@ async function sentenceSupport() {
 // 初期設定
 // ========================================
 document.addEventListener("DOMContentLoaded", function () {
+
+  Voice.init();  
+
   const textarea = document.getElementById("inputText");
   const resultDiv = document.getElementById("translateResult");
 
@@ -176,5 +179,94 @@ if (!this.value) {
 
   // ===== Enterキーで実行 =====
   textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
+
+});
+
+// ========================================
+// Voice Controller
+// ========================================
+const Voice = (function () {
+
+  let ready = false;
+  let voiceJP = null;
+  let voiceTH = null;
+  let voiceEN = null;
+
+  function init() {
+
+    const setVoices = () => {
+
+      const voices = speechSynthesis.getVoices();
+
+      voiceJP =
+        voices.find(v => v.name.includes("七海")) ||
+        voices.find(v => v.lang === "ja-JP");
+
+      voiceTH =
+        voices.find(v => v.name.includes("เปรมวดี")) ||
+        voices.find(v => v.lang === "th-TH");
+
+      voiceEN =
+        voices.find(v => v.lang === "en-US") ||
+        voices.find(v => v.lang.startsWith("en"));
+
+      if (voiceJP || voiceTH || voiceEN) {
+        ready = true;
+      }
+
+    };
+
+    setVoices();
+    speechSynthesis.onvoiceschanged = setVoices;
+
+  }
+
+  function speak(text, lang) {
+
+    if (!ready || !text) return;
+
+    const uttr = new SpeechSynthesisUtterance(text);
+
+    if (lang === "ja") {
+      uttr.lang = "ja-JP";
+      if (voiceJP) uttr.voice = voiceJP;
+    }
+
+    if (lang === "th") {
+      uttr.lang = "th-TH";
+      if (voiceTH) uttr.voice = voiceTH;
+    }
+
+    if (lang === "en") {
+      uttr.lang = "en-US";
+      if (voiceEN) uttr.voice = voiceEN;
+    }
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(uttr);
+
+  }
+
+  return {
+    init,
+    speak
+  };
+
+})();
+
+// ========================================
+// 音声ボタン
+// ========================================
+document.getElementById("speakBtn").addEventListener("click", function () {
+
+  const text =
+    document.getElementById("translateResult").innerText.trim();
+
+  if (!text) return;
+
+  const lang =
+    document.getElementById("targetLang").value;
+
+  Voice.speak(text, lang);
 
 });
