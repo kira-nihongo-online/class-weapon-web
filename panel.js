@@ -216,14 +216,6 @@ const Voice = (function () {
 
     };
 
-    console.log("===== English Voices =====");
-
-    setTimeout(() => {
-      speechSynthesis.getVoices()
-        .filter(v => v.lang.startsWith("en"))
-        .forEach(v => console.log(v.name, "|", v.lang));
-    }, 500);    
-
     setVoices();
     speechSynthesis.onvoiceschanged = setVoices;
 
