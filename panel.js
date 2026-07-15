@@ -17,7 +17,7 @@ async function translateText() {
   }
 
   const url =
-    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=th&dt=t&q=" +
+    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
     encodeURIComponent(text);
 
   const res = await fetch(url);
@@ -95,7 +95,7 @@ function openSubtitleWindow(translated) {
   //}
 
   //const url =
-    //"https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=th&dt=t&q=" +
+    //"https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
     //encodeURIComponent(word);
 
   //const res = await fetch(url);
@@ -126,7 +126,7 @@ async function sentenceSupport() {
   let html = "";
   for (const word of words) {
     const url =
-      "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=th&dt=t&q=" +
+      "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
       encodeURIComponent(word);
 
     const res = await fetch(url);
@@ -149,7 +149,7 @@ async function sentenceSupport() {
 document.addEventListener("DOMContentLoaded", function () {
   const textarea = document.getElementById("jpInput");
   const resultDiv = document.getElementById("translateResult");
-  
+
   const sentenceResult = document.getElementById("sentenceResult");
 
   // ===== 入力欄変更時に結果をクリア =====
