@@ -158,6 +158,10 @@ async function wordSupport() {
 
   resultDiv.innerHTML = "解析中...";
 
+  const isJapanese = /[ぁ-んァ-ヶ一-龯]/.test(text);
+
+  resultDiv.innerHTML = isJapanese ? "日本語を解析します..." : "タイ語を解析します...";
+
 }
 
 // ========================================
