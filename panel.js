@@ -167,32 +167,32 @@ async function wordSupport() {
     return;
   }
 
-  let words = text.split(/は|が|を|に|で|と|も|へ|や|の|、|。|\s/);
-  words = words.filter(w => w.trim() !== "");
-  words = [...new Set(words)];
+  const tokens = tokenizer.tokenize(text);
 
-  resultDiv.innerHTML = words.join("<br>");
+  resultDiv.innerHTML = tokens
+    .map(token => token.surface_form)
+    .join("<br>");
 
  }
 
 // ========================================
 // Kuromoji
 // ========================================
-let tokenizer = null;
+//let tokenizer = null;
 
-kuromoji.builder({
+//kuromoji.builder({
   dicPath: "dict"
-}).build(function(err, t) {
+//}).build(function(err, t) {
 
-  if (err) {
-    console.error(err);
-    return;
-  }
+  //if (err) {
+    //console.error(err);
+    //return;
+  //}
 
-  tokenizer = t;
-  console.log("Kuromoji Ready");
+  //tokenizer = t;
+  //console.log("Kuromoji Ready");
 
-});
+//});
 
 // ========================================
 // Voice Controller
