@@ -1,286 +1,152 @@
-// ========================================
-// Class Weapon
-// panel.js (字幕表示対応版)
-// ========================================
+<!DOCTYPE html>
+<html>
 
-// ========================================
-// 授業翻訳
-// ========================================
-async function translateText() {
-  const text = document.getElementById("inputText").value;
-  const resultDiv = document.getElementById("translateResult");
-  const targetLang = document.getElementById("targetLang").value;
+<head>
+<meta charset="UTF-8">
+<title>Class Weapon</title>
 
-  if (!text) {
-    resultDiv.innerHTML = "";
-    document.getElementById("sentenceResult").innerHTML = "";
-    return;
-  }
+<style>
 
-  const url =
-    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" +
-    targetLang +
-    "&dt=t&q=" +
-    encodeURIComponent(text);
-
-  const res = await fetch(url);
-  const data = await res.json();
-  const translated = data[0].map(t => t[0]).join("");
-
-  // サイドパネル表示
-  resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
-
-  wordSupport();
-
-  // ===== 字幕表示 =====
-  //openSubtitleWindow(translated);
+body{
+  font-family:sans-serif;
+  padding:10px;
+  margin:0;
 }
 
-// ========================================
-// 字幕用ウィンドウ表示
-// ========================================
-let subtitlePopup = null;
-function openSubtitleWindow(translated) {
-  if (!translated) return;
-
-  // ウィンドウが開いていなければ新規作成
-  if (!subtitlePopup || subtitlePopup.closed) {
-    subtitlePopup = window.open(
-      "",
-      "SubtitlePopup",
-      "width=800,height=100,left=100,top=600,resizable=yes,scrollbars=no"
-    );
-
-    subtitlePopup.document.write(`
-      <html>
-      <head>
-        <style>
-          body {
-            margin:0;
-            font-family:sans-serif;
-            background:#000;
-            color:#fff;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            height:100%;
-          }
-          .subtitle {
-            font-size:2em;
-            font-weight:normal;
-            line-height:1.4;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="subtitle" id="subtitleContent">${translated}</div>
-      </body>
-      </html>
-    `);
-  } else {
-    // 既存ウィンドウがあれば内容を更新
-    const content = subtitlePopup.document.getElementById("subtitleContent");
-    if (content) content.innerText = translated;
-  }
+h2{
+  margin-top:15px;
+  font-size:16px;
+  border-bottom:1px solid #ccc;
+  padding-bottom:4px;
 }
 
-// ========================================
-// 単語辞書
-// ========================================
-//async function searchWord() {
-  //const word = document.getElementById("dictInput").value;
-  //const resultDiv = document.getElementById("dictResult");
-
-  //if (!word) {
-    //resultDiv.innerHTML = "";
-    //return;
-  //}
-
-  //const url =
-    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=th&dt=t&q=" +
-    //encodeURIComponent(word);
-
-  //const res = await fetch(url);
-  //const data = await res.json();
-  //const translated = data[0].map(t => t[0]).join("");
-
-  //resultDiv.innerHTML = `<span class="translated">${translated}</span>`;
-//}
-
-// ========================================
-// 初期設定
-// ========================================
-document.addEventListener("DOMContentLoaded", function () {
-
-  Voice.init();  
-
-  const textarea = document.getElementById("inputText");
-  const resultDiv = document.getElementById("translateResult");
-
-  const sentenceResult = document.getElementById("sentenceResult");
-
-  // ===== 入力欄変更時に結果をクリア =====
-  textarea.addEventListener("input", function() {
-if (!this.value) {
-  resultDiv.innerHTML = "";
-  sentenceResult.innerHTML = "";
+textarea,input{
+  width:100%;
+  margin-top:5px;
+  padding:6px;
+  box-sizing:border-box;
 }
-  });
 
-  // ===== ボタンイベント =====
-  document.getElementById("translateBtn").addEventListener("click", translateText);
+.buttonRow{
+  margin-top:5px;
+  display:flex;
+  gap:10px;
+}
 
-  document.getElementById("clearBtn").addEventListener("click", function () {
+.buttonRow button{
+  width:150px;
+}
 
-    document.getElementById("inputText").value = "";
-    document.getElementById("translateResult").innerHTML = "";
-    document.getElementById("sentenceResult").innerHTML = "";
+.result{
+  background:#f5f5f5;
+  padding:6px;
+  margin-top:5px;
+  min-height:40px;
+  border:1px solid #ccc;
+}
 
-  });
+/* ========================== */
+/* タイ語だけ見やすく調整 */
+.translated {
+  font-size: 1.3em;    /* 少し小さめに */
+  font-weight: normal;  /* 太すぎない */
+  line-height: 1.3;    /* 詰まりすぎない */
+}
 
-  // ===== Enterキーで実行 =====
-  textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
+.section{
+  margin-bottom:20px;
+}
 
-});
+.wordRow{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #ddd;
+  padding:3px 0;
+  cursor:pointer;
+}
 
-// ========================================
-// 単語サポート
-// ========================================
-async function wordSupport() {
+.header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+}
 
-  const text = document.getElementById("inputText").value;
-  const resultDiv = document.getElementById("sentenceResult");
+.logo{
+  width:30px;
+  height:auto;
+}
 
-  if (!text) {
-    resultDiv.innerHTML = "";
-    return;
-  }
+h1{
+  margin:0;
+  font-size:32px;
+  font-weight:bold;
+}
 
-  resultDiv.innerHTML = "解析中...";
+.resultArea{
+  display:flex;
+  gap:20px;
+  margin-top:15px;
+}
 
-  const isJapanese = /[ぁ-んァ-ヶ一-龯]/.test(text);
+.resultBox{
+  flex:1;
+}
 
-  resultDiv.innerHTML = isJapanese ? "日本語を解析します..." : "タイ語を解析します...";
+.resultBox h2{
+  margin-top:0;
+}
 
-  if (!isJapanese) {
-    resultDiv.innerHTML = "";
-    return;
-  }
+</style>
 
-  const tokens = tokenizer.tokenize(text);
+</head>
 
-  resultDiv.innerHTML = tokens
-    .map(token => token.surface_form)
-    .join("<br>");
+<body>
 
- }
+<div class="header">
+  <img src="トータルロゴ.png" class="logo">
+  <h1>Class Weapon</h1>
+</div>
 
-// ========================================
-// Kuromoji
-// ========================================
-//let tokenizer = null;
+<!-- ===== 授業翻訳 ===== -->
+<div class="section">
+<h2>授業翻訳</h2>
 
-//kuromoji.builder({
-  dicPath: "dict"
-//}).build(function(err, t) {
+<select id="targetLang">
+  <option value="ja">日本語</option>
+  <option value="th" selected>タイ語</option>
+  <option value="en">英語</option>
+</select>
 
-  //if (err) {
-    //console.error(err);
-    //return;
-  //}
+<textarea id="inputText" placeholder="入力（日本語・ไทย・English）" rows="5"></textarea>
 
-  //tokenizer = t;
-  //console.log("Kuromoji Ready");
+<div class="buttonRow">
+  <button id="translateBtn">翻訳する</button>
+  <button id="clearBtn">クリア</button>
+</div>
 
-//});
+<div class="resultArea">
 
-// ========================================
-// Voice Controller
-// ========================================
-const Voice = (function () {
+  <div class="resultBox">
+    <h2>翻訳結果</h2>
 
-  let ready = false;
-  let voiceJP = null;
-  let voiceTH = null;
-  let voiceEN = null;
+    <div class="buttonRow">
+        <button id="speakBtn">🔊 再生</button>
+    </div>
 
-  function init() {
+    <div class="result" id="translateResult"></div>
+  </div>
 
-    const setVoices = () => {
+  <div class="resultBox">
+    <h2>単語サポート</h2>
+    <div class="result" id="sentenceResult"></div>
+  </div>
 
-      const voices = speechSynthesis.getVoices();
+</div>
 
-      voiceJP =
-        voices.find(v => v.name.includes("七海")) ||
-        voices.find(v => v.lang === "ja-JP");
+</div>
+<script src="kuromoji.js"></script>
+<script src="panel.js"></script>
 
-      voiceTH =
-        voices.find(v => v.name.includes("เปรมวดี")) ||
-        voices.find(v => v.lang === "th-TH");
-
-      voiceEN =
-        voices.find(v => v.name.includes("Jenny")) ||
-        voices.find(v => v.lang.startsWith("en"));
-
-      if (voiceJP || voiceTH || voiceEN) {
-        ready = true;
-      }
-
-    };
-
-    setVoices();
-    speechSynthesis.onvoiceschanged = setVoices;
-
-  }
-
-  function speak(text, lang) {
-
-    if (!ready || !text) return;
-
-    const uttr = new SpeechSynthesisUtterance(text);
-
-    if (lang === "ja") {
-      uttr.lang = "ja-JP";
-      if (voiceJP) uttr.voice = voiceJP;
-    }
-
-    if (lang === "th") {
-      uttr.lang = "th-TH";
-      if (voiceTH) uttr.voice = voiceTH;
-    }
-
-    if (lang === "en") {
-      uttr.lang = "en-US";
-      if (voiceEN) uttr.voice = voiceEN;
-    }
-
-    speechSynthesis.cancel();
-    speechSynthesis.speak(uttr);
-
-  }
-
-  return {
-    init,
-    speak
-  };
-
-})();
-
-// ========================================
-// 音声ボタン
-// ========================================
-document.getElementById("speakBtn").addEventListener("click", function () {
-
-  const text =
-    document.getElementById("translateResult").innerText.trim();
-
-  if (!text) return;
-
-  const lang =
-    document.getElementById("targetLang").value;
-
-  Voice.speak(text, lang);
-
-});
-
-console.log(kuromoji);
+</body>
+</html>
