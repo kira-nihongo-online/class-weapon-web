@@ -207,7 +207,7 @@ const Voice = (function () {
         voices.find(v => v.lang === "th-TH");
 
       voiceEN =
-        voices.find(v => v.lang === "en-US") ||
+        voices.find(v => v.name.includes("Jenny")) ||
         voices.find(v => v.lang.startsWith("en"));
 
       if (voiceJP || voiceTH || voiceEN) {
