@@ -252,6 +252,8 @@ if (SpeechRecognition) {
 
     document.getElementById("inputText").value = text;
 
+    translateText();
+
   };
 
 }
