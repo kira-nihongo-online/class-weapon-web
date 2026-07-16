@@ -213,19 +213,20 @@ async function wordSupport() {
     const translated = data[0].map(t => t[0]).join("");
 
     html += `
-      <div class="wordRow">
+    <div class="wordRow">
 
-        <span>${token.surface_form}</span>
+      <span>${token.surface_form}</span>
 
-        <span class="translated">${translated}</span>
+      <span class="translated">${translated}</span>
 
-        <button
-          class="wordSpeak"
-          data-word="${token.surface_form}">
-          🔊
-        </button>
+      <button
+        class="wordSpeak"
+        data-ja="${token.surface_form}"
+        data-th="${translated}">
+        🔊
+      </button>
 
-      </div>
+    </div>
     `;
 
   }
