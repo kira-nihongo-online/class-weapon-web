@@ -141,6 +141,24 @@ if (!this.value) {
   // ===== Enterキーで実行 =====
   textarea.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); translateText(); }});
 
+  document.getElementById("jpMode").addEventListener("click", function () {
+
+    speakMode = "ja";
+
+    this.classList.add("active");
+    document.getElementById("thMode").classList.remove("active");
+
+  });
+
+  document.getElementById("thMode").addEventListener("click", function () {
+
+    speakMode = "th";
+
+    this.classList.add("active");
+    document.getElementById("jpMode").classList.remove("active");
+
+  });
+
 });
 
 // ========================================
@@ -256,6 +274,8 @@ const Voice = (function () {
   let voiceJP = null;
   let voiceTH = null;
   let voiceEN = null;
+  
+  let speakMode = "ja";
 
   function init() {
 
