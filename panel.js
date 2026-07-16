@@ -32,56 +32,9 @@ async function translateText() {
 
   wordSupport();
 
-  // ===== 字幕表示 =====
-  //openSubtitleWindow(translated);
-}
+ // 翻訳後に自動で1回再生
+ Voice.speak(translated, targetLang);
 
-// ========================================
-// 字幕用ウィンドウ表示
-// ========================================
-let subtitlePopup = null;
-function openSubtitleWindow(translated) {
-  if (!translated) return;
-
-  // ウィンドウが開いていなければ新規作成
-  if (!subtitlePopup || subtitlePopup.closed) {
-    subtitlePopup = window.open(
-      "",
-      "SubtitlePopup",
-      "width=800,height=100,left=100,top=600,resizable=yes,scrollbars=no"
-    );
-
-    subtitlePopup.document.write(`
-      <html>
-      <head>
-        <style>
-          body {
-            margin:0;
-            font-family:sans-serif;
-            background:#000;
-            color:#fff;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            height:100%;
-          }
-          .subtitle {
-            font-size:2em;
-            font-weight:normal;
-            line-height:1.4;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="subtitle" id="subtitleContent">${translated}</div>
-      </body>
-      </html>
-    `);
-  } else {
-    // 既存ウィンドウがあれば内容を更新
-    const content = subtitlePopup.document.getElementById("subtitleContent");
-    if (content) content.innerText = translated;
-  }
 }
 
 // ========================================
