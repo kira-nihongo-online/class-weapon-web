@@ -256,6 +256,12 @@ if (SpeechRecognition) {
 
   };
 
+  recognition.onstart = function () {
+
+    document.getElementById("micBtn").textContent = "🎙️";
+
+  };
+
 }
 
 // ========================================
