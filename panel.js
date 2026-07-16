@@ -258,18 +258,6 @@ if (SpeechRecognition) {
 
 }
 
-recognition.lang = "ja-JP";
-recognition.interimResults = false;
-recognition.continuous = false;
-
-recognition.onresult = function (event) {
-
-  const text = event.results[0][0].transcript;
-
-  document.getElementById("inputText").value = text;
-
-};
-
 // ========================================
 // Voice Controller
 // ========================================
