@@ -258,13 +258,19 @@ if (SpeechRecognition) {
 
   recognition.onstart = function () {
 
-    document.getElementById("micBtn").textContent = "🎙️";
+    const micBtn = document.getElementById("micBtn");
+
+    micBtn.textContent = "🎙️";
+    micBtn.classList.add("listening");
 
   };
 
   recognition.onend = function () {
 
-    document.getElementById("micBtn").textContent = "🎤";
+    const micBtn = document.getElementById("micBtn");
+
+    micBtn.textContent = "🎤";
+    micBtn.classList.remove("listening");
 
   };
 
