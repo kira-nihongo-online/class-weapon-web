@@ -196,8 +196,17 @@ async function wordSupport() {
 
     html += `
       <div class="wordRow">
+
         <span>${token.surface_form}</span>
+
         <span class="translated">${translated}</span>
+
+        <button
+          class="wordSpeak"
+          data-word="${token.surface_form}">
+          🔊
+        </button>
+
       </div>
     `;
 
