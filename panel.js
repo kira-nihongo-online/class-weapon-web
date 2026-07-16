@@ -169,7 +169,19 @@ async function wordSupport() {
 
   const tokens = tokenizer.tokenize(text);
 
-  resultDiv.innerHTML = tokens
+  const words = tokens.filter(token => {
+
+    // 助詞を除外
+    if (token.pos === "助詞") return false;
+
+    // 記号を除外
+    if (token.pos === "記号") return false;
+
+    return true;
+
+  });
+
+  resultDiv.innerHTML = words
     .map(token => token.surface_form)
     .join("<br>");
 
