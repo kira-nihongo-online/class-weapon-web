@@ -81,6 +81,13 @@ if (!this.value) {
   });
 
   // ===== ボタンイベント =====
+
+  document.getElementById("micBtn").addEventListener("click", function () {
+    if (recognition) {
+        recognition.start();
+    }
+  });
+
   document.getElementById("translateBtn").addEventListener("click", translateText);
 
   document.getElementById("clearBtn").addEventListener("click", function () {
@@ -222,6 +229,44 @@ kuromoji.builder({
 });
 
 let speakMode = "ja";
+
+// ========================================
+// Speech Recognition
+// ========================================
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+let recognition = null;
+
+if (SpeechRecognition) {
+
+  recognition = new SpeechRecognition();
+
+  recognition.lang = "ja-JP";
+  recognition.interimResults = false;
+  recognition.continuous = false;
+
+  recognition.onresult = function (event) {
+
+    const text = event.results[0][0].transcript;
+
+    document.getElementById("inputText").value = text;
+
+  };
+
+}
+
+recognition.lang = "ja-JP";
+recognition.interimResults = false;
+recognition.continuous = false;
+
+recognition.onresult = function (event) {
+
+  const text = event.results[0][0].transcript;
+
+  document.getElementById("inputText").value = text;
+
+};
 
 // ========================================
 // Voice Controller
