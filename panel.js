@@ -237,9 +237,11 @@ async function wordSupport() {
 
     button.addEventListener("click", function () {
 
-      const word = this.dataset.word;
-
-      Voice.speak(word, "ja");
+      if (speakMode === "ja") {
+        Voice.speak(this.dataset.ja, "ja");
+      } else {
+        Voice.speak(this.dataset.th, "th");
+      }
 
     });
 
@@ -266,6 +268,8 @@ kuromoji.builder({
 
 });
 
+let speakMode = "ja";
+
 // ========================================
 // Voice Controller
 // ========================================
@@ -275,8 +279,6 @@ const Voice = (function () {
   let voiceJP = null;
   let voiceTH = null;
   let voiceEN = null;
-  
-  let speakMode = "ja";
 
   function init() {
 
