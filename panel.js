@@ -181,9 +181,29 @@ async function wordSupport() {
 
   });
 
-  resultDiv.innerHTML = words
-    .map(token => token.surface_form)
-    .join("<br>");
+  let html = "";
+
+  for (const token of words) {
+
+    const url =
+      "https://translate.googleapis.com/translate_a/single?client=gtx&sl=ja&tl=th&dt=t&q=" +
+      encodeURIComponent(token.surface_form);
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const translated = data[0].map(t => t[0]).join("");
+
+    html += `
+      <div class="wordRow">
+        <span>${token.surface_form}</span>
+        <span class="translated">${translated}</span>
+      </div>
+    `;
+
+  }
+
+  resultDiv.innerHTML = html;
 
  }
 
