@@ -214,6 +214,18 @@ async function wordSupport() {
 
   resultDiv.innerHTML = html;
 
+  resultDiv.querySelectorAll(".wordSpeak").forEach(button => {
+
+    button.addEventListener("click", function () {
+
+      const word = this.dataset.word;
+
+      Voice.speak(word, "ja");
+
+    });
+
+  });
+
  }
 
 // ========================================
