@@ -380,3 +380,11 @@ document.getElementById("speakBtn").addEventListener("click", function () {
 });
 
 console.log(kuromoji);
+
+document.getElementById("copyInputBtn").addEventListener("click", function () {
+
+    const text = document.getElementById("inputText").value;
+
+    navigator.clipboard.writeText(text);
+
+});
