@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const copyBtn = document.getElementById("copyInputBtn");
   console.log(copyBtn);
 
+  copyBtn.onclick = function () {
+      alert("クリックされた");
+  };
+
   // ===== 入力欄変更時に結果をクリア =====
   textarea.addEventListener("input", function() {
 if (!this.value) {
