@@ -84,7 +84,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       try {
           await navigator.clipboard.writeText(text);
-          alert("コピーしました");
+          copyBtn.textContent = "✅";
+
+          setTimeout(function () {
+              copyBtn.textContent = "📋";
+          }, 1000);
+
       } catch (e) {
           alert("コピー失敗");
           console.error(e);
