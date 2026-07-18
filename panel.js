@@ -102,6 +102,8 @@ if (!this.value) {
           recognition.start();
       }
 
+      });
+
   document.getElementById("translateBtn").addEventListener("click", translateText);
 
   document.getElementById("clearBtn").addEventListener("click", function () {
