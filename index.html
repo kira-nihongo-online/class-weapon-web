@@ -149,13 +149,30 @@ h1{
 
 <!-- ===== 授業翻訳 ===== -->
 <div class="section">
+
 <h2>授業翻訳</h2>
 
-<select id="targetLang">
-  <option value="ja">日本語</option>
-  <option value="th" selected>タイ語</option>
-  <option value="en">英語</option>
-</select>
+<div class="langSelectRow">
+
+  <label>入力</label>
+
+  <select id="sourceLang">
+    <option value="ja">日本語</option>
+    <option value="th">タイ語</option>
+    <option value="en">英語</option>
+  </select>
+
+  <span>→</span>
+
+  <label>翻訳</label>
+
+  <select id="targetLang">
+    <option value="ja">日本語</option>
+    <option value="th" selected>タイ語</option>
+    <option value="en">英語</option>
+  </select>
+
+</div>
 
 <textarea id="inputText" placeholder="入力（日本語・ไทย・English）" rows="5"></textarea>
 
