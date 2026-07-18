@@ -75,6 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const sentenceResult = document.getElementById("sentenceResult");
 
+  const copyBtn = document.getElementById("copyInputBtn");
+  console.log(copyBtn);
+
   // ===== 入力欄変更時に結果をクリア =====
   textarea.addEventListener("input", function() {
 if (!this.value) {
@@ -380,11 +383,3 @@ document.getElementById("speakBtn").addEventListener("click", function () {
 });
 
 console.log(kuromoji);
-
-document.getElementById("copyInputBtn").addEventListener("click", function () {
-
-    const text = document.getElementById("inputText").value;
-
-    navigator.clipboard.writeText(text);
-
-});
