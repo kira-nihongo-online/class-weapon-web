@@ -78,8 +78,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const copyBtn = document.getElementById("copyInputBtn");
   console.log(copyBtn);
 
-  copyBtn.onclick = function () {
-      alert("クリックされた");
+  copyBtn.onclick = async function () {
+
+      const text = document.getElementById("inputText").value;
+
+      try {
+          await navigator.clipboard.writeText(text);
+          alert("コピーしました");
+      } catch (e) {
+          alert("コピー失敗");
+          console.error(e);
+      }
+
   };
 
   // ===== 入力欄変更時に結果をクリア =====
