@@ -9,6 +9,7 @@
 async function translateText() {
   const text = document.getElementById("inputText").value;
   const resultDiv = document.getElementById("translateResult");
+  const sourceLang = document.getElementById("sourceLang").value;
   const targetLang = document.getElementById("targetLang").value;
 
   if (!text) {
@@ -18,7 +19,9 @@ async function translateText() {
   }
 
   const url =
-    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" +
+    "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" +
+    sourceLang +
+    "&tl=" +
     targetLang +
     "&dt=t&q=" +
     encodeURIComponent(text);
@@ -83,10 +86,21 @@ if (!this.value) {
   // ===== ボタンイベント =====
 
   document.getElementById("micBtn").addEventListener("click", function () {
-    if (recognition) {
-        recognition.start();
-    }
-  });
+
+      const sourceLang = document.getElementById("sourceLang").value;
+
+      if (recognition) {
+
+          if (sourceLang === "ja") {
+              recognition.lang = "ja-JP";
+          } else if (sourceLang === "th") {
+              recognition.lang = "th-TH";
+          } else if (sourceLang === "en") {
+              recognition.lang = "en-US";
+          }
+
+          recognition.start();
+      }
 
   document.getElementById("translateBtn").addEventListener("click", translateText);
 
@@ -126,6 +140,8 @@ if (!this.value) {
 // ========================================
 async function wordSupport() {
 
+  const sourceLang = document.getElementById("sourceLang").value;
+
   const text = document.getElementById("inputText").value;
   const resultDiv = document.getElementById("sentenceResult");
 
@@ -136,12 +152,8 @@ async function wordSupport() {
 
   resultDiv.innerHTML = "解析中...";
 
-  const isJapanese = /[ぁ-んァ-ヶ一-龯]/.test(text);
-
-  resultDiv.innerHTML = isJapanese ? "日本語を解析します..." : "タイ語を解析します...";
-
-  if (!isJapanese) {
-    resultDiv.innerHTML = "";
+  if (sourceLang !== "ja") {
+    resultDiv.innerHTML = "単語サポートは日本語入力のみ対応しています。";
     return;
   }
 
